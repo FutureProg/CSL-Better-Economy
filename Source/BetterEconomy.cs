@@ -4,6 +4,7 @@ using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.IO;
 using ColossalFramework.UI;
+using System;
 
 namespace BetterEconomy {
 
