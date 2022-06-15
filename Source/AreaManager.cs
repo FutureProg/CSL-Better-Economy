@@ -6,15 +6,15 @@ namespace BetterEconomy
 {
 
     public class AreaManager : AreasExtensionBase
-    {
-
-        // public int OnGetAreaPrice(uint ore, uint oil, uint forest, uint fertility, uint water, bool road, bool train, bool ship, bool plane, float landFlatness, int originalPrice)
-        // {
-        //     return 100_000;
-        // }
+    {      
         public override int OnGetAreaPrice(uint ore, uint oil, uint forest, uint fertility, uint water, bool road, bool train, bool ship, bool plane, float landFlatness, int originalPrice)
         {
-            return 100000;
+            int baseCost = 1000;
+            int finalCost = baseCost;
+            // industry weighting
+            finalCost += (int)(water * (ModSettings.waterRatio*baseCost));
+
+            return finalCost * 100; // multiply by 100 because if it returns 100 the game outputs $1.00
         }
     }
 
