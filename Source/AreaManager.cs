@@ -11,11 +11,40 @@ namespace BetterEconomy
         {
             Logger.Info(string.Format("Received the following values for area:\nore{0},oil:{1},forest:{2},fertility:{3},water:{4},landFlatness:{5},originalPrice:{6}", ore, oil, forest, fertility, water, landFlatness, originalPrice));
             int baseCost = 1000;
-            int finalCost = baseCost;
+            float finalCost = baseCost;
             // industry weighting
-            finalCost += (int)(water * (ModSettings.waterRatio*baseCost));
+            // ore
+            finalCost += ore * (ModSettings.resourceWeighting * 3)/255;
+            finalCost += oil * (ModSettings.resourceWeighting * 4)/255;
+            finalCost += fertility * (ModSettings.resourceWeighting * 2)/255;
+            finalCost += forest * (ModSettings.resourceWeighting * 1)/255;
 
-            return finalCost * 100; // multiply by 100 because if it returns 100 the game outputs $1.00
+            // Connections and Water
+            if (water > ModSettings.minimumWaterAmount)
+            {
+                finalCost += ModSettings.resourceWeighting * (water/255);                                
+            }
+            if (ship)
+            {
+                finalCost += ModSettings.connectionWeighting * finalCost;
+            }
+            if (train)
+            {
+                finalCost += ModSettings.connectionWeighting * finalCost;
+            }
+            if (road)
+            {
+                finalCost += ModSettings.connectionWeighting * finalCost;
+            }
+            if (plane)
+            {
+                finalCost += ModSettings.connectionWeighting * finalCost;
+            }
+
+            // Buildability
+            finalCost += finalCost * (landFlatness) / 10;
+
+            return (int) finalCost * 100; // multiply by 100 because if it returns 100 the game outputs $1.00
         }
     }
 

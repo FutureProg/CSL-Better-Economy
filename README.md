@@ -46,3 +46,5 @@ Natural resources is counted by number of cells with water having volume
 
 Natural Resource Value
 Oil > Ore > Farming > Forestry
+
+Flatter land costs more
