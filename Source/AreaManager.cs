@@ -10,14 +10,14 @@ namespace BetterEconomy
         public override int OnGetAreaPrice(uint ore, uint oil, uint forest, uint fertility, uint water, bool road, bool train, bool ship, bool plane, float landFlatness, int originalPrice)
         {
             Logger.Info(string.Format("Received the following values for area:\nore{0},oil:{1},forest:{2},fertility:{3},water:{4},landFlatness:{5},originalPrice:{6}", ore, oil, forest, fertility, water, landFlatness, originalPrice));
-            int baseCost = 1000;
+            int baseCost = 400000;
             float finalCost = baseCost;
             // industry weighting
             // ore
-            finalCost += ore * (ModSettings.resourceWeighting * 3)/255;
-            finalCost += oil * (ModSettings.resourceWeighting * 4)/255;
-            finalCost += fertility * (ModSettings.resourceWeighting * 2)/255;
-            finalCost += forest * (ModSettings.resourceWeighting * 1)/255;
+            finalCost += ore * (ModSettings.resourceWeighting * 3);
+            finalCost += oil * (ModSettings.resourceWeighting * 4);
+            finalCost += fertility * (ModSettings.resourceWeighting * 2);
+            finalCost += forest * (ModSettings.resourceWeighting * 1);
 
             // Connections and Water
             if (water > ModSettings.minimumWaterAmount)
@@ -42,9 +42,9 @@ namespace BetterEconomy
             }
 
             // Buildability
-            finalCost += finalCost * (landFlatness) / 10;
-
-            return (int) finalCost * 100; // multiply by 100 because if it returns 100 the game outputs $1.00
+            finalCost += finalCost * landFlatness * ModSettings.flatnessWeighting;
+            Logger.Info(string.Format("New Cost: {0}", (int)(finalCost * 100)));
+            return (int)(finalCost * 100); // multiply by 100 because if it returns 100 the game outputs $1.00
         }
     }
 

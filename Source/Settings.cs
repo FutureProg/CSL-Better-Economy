@@ -9,10 +9,10 @@ using System;
 namespace BetterEconomy {
     public class ModSettings {
 
-        public static float resourceWeighting = 0.25f;
+        public static float resourceWeighting = 0.2f;
         public static float connectionWeighting = 0.3f;
-        public static int minimumWaterAmount = 12000;
-        public static float flatnessWeighting = 0.0f;
+        public static int minimumWaterAmount = 48400;
+        public static float flatnessWeighting = 0.43f;
 
         public static void OnSettingsUI(UIHelperBase helper)
         {
